@@ -7,23 +7,20 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-  
     gtag('config', 'G-YD4BE7MZR0');
   </script>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🔥 THE FIAT BURNER 🔥</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
-  
   <style>
-    /* ビットコイン＆サイバーパンク風のスタイル */
     body {
       margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif;
       background-color: #111; color: #fff; text-align: center;
       display: flex; flex-direction: column; align-items: center; min-height: 100vh;
     }
     h1 {
-      font-family: 'Press Start 2P', cursive; color: #f7931a; /* ビットコインオレンジ */
+      font-family: 'Press Start 2P', cursive; color: #f7931a;
       margin-top: 40px; font-size: 1.5rem; text-shadow: 0 0 10px #f7931a;
       line-height: 1.5;
     }
@@ -32,22 +29,20 @@
       margin: 20px 0; font-size: 1.2rem; font-weight: bold;
     }
     .total-number { color: #00ff00; font-size: 1.8rem; font-family: 'Press Start 2P', cursive; margin-top: 10px;}
-    
-    /* 燃やされるFiatのアニメーション領域 */
+   
     .stage {
       width: 300px; height: 200px; display: flex; justify-content: center; align-items: center;
       font-size: 100px; margin: 30px 0; position: relative;
     }
     .fiat-money { transition: all 0.5s ease; }
-    
-    /* 炎のアニメーション */
+   
     .burning { animation: shakeAndBurn 2s forwards; }
     @keyframes shakeAndBurn {
       0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
       20% { transform: scale(1.1) rotate(10deg); filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.2); }
       40% { transform: scale(1.1) rotate(-10deg); filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.5); }
       60% { transform: scale(1.2) translateY(-20px); opacity: 1; }
-      100% { transform: scale(0.5) translateY(-100px); opacity: 0; display: none; }
+      100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
     }
     .fire-emoji {
       position: absolute; font-size: 150px; opacity: 0; pointer-events: none;
@@ -59,7 +54,6 @@
       100% { opacity: 0; transform: scale(2); }
     }
 
-    /* ボタン・インボイス類 */
     .btn {
       background: #f7931a; color: #111; border: none; padding: 15px 30px;
       font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer;
@@ -67,26 +61,33 @@
       transition: all 0.2s; margin-bottom: 20px; font-family: 'Press Start 2P', cursive;
     }
     .btn:active { transform: translateY(4px); box-shadow: none; }
+    .btn:disabled { background: #555; color: #888; cursor: not-allowed; }
     .btn-secondary { background: #333; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-    
-    /* X (Twitter) シェアボタン */
+   
     .btn-x {
       background: #000; color: #fff; border: 2px solid #fff;
       display: none; align-items: center; justify-content: center; gap: 10px;
     }
     .btn-x svg { width: 20px; fill: #fff; }
 
-    .invoice-container { display: none; background: #222; padding: 20px; border-radius: 10px; margin-top: 10px; }
+    .invoice-container { 
+      display: none; background: #222; padding: 20px; border-radius: 10px; 
+      margin-top: 10px; width: 90%; max-width: 340px;
+    }
     .qr-box img { border: 5px solid #fff; border-radius: 5px; }
-    .invoice-text { width: 100%; height: 50px; margin-top: 10px; background: #111; color: #00ff00; border: 1px solid #333; font-family: monospace; }
-    
-    #success-message { display: none; color: #f7931a; font-size: 1.5rem; font-weight: bold; margin: 20px 0; }
+    .invoice-text { 
+      width: 100%; height: 50px; margin-top: 10px; background: #111; 
+      color: #00ff00; border: 1px solid #333; font-family: monospace; font-size: 0.85rem;
+    }
+   
+    #success-message { 
+      display: none; color: #f7931a; font-size: 1.5rem; font-weight: bold; 
+      margin: 20px 0; line-height: 1.4;
+    }
   </style>
 </head>
 <body>
-
   <h1>🔥 THE FIAT BURNER 🔥</h1>
-
   <div class="global-stats">
     Global Fiat Burned by Plebs<br>
     <div class="total-number">$<span id="total-burned">Loading...</span></div>
@@ -98,12 +99,15 @@
   </div>
 
   <div id="action-area">
+    <button class="btn" id="free-btn" onclick="playFree()" style="display:none;">FREE BURN<br><span style="font-size:0.7rem;">(初回無料)</span></button>
     <button class="btn" id="generate-btn" onclick="generateInvoice()">BURN $1,000,000<br><span style="font-size: 0.7rem;">(Pay 100 sats)</span></button>
   </div>
 
   <div class="invoice-container" id="invoice-container">
     <div class="qr-box">
-      <a id="lightning-link" href="#"><img id="qr-code" src="" alt="Lightning Invoice" width="200" height="200"></a>
+      <a id="lightning-link" href="#">
+        <img id="qr-code" src="" alt="Lightning Invoice" width="200" height="200">
+      </a>
     </div>
     <p style="font-size: 0.8rem; margin: 10px 0;">Tap QR to open wallet</p>
     <textarea class="invoice-text" id="invoice-text" readonly onclick="this.select()"></textarea>
@@ -115,39 +119,60 @@
     SUCCESS! $1M BURNED 🔥<br>Fiat is a scam.
   </div>
 
-  <!-- X(Twitter)共有ボタン -->
   <button class="btn btn-x" id="share-btn" onclick="shareToX()">
     <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
     SHARE YOUR PROOF OF WORK
   </button>
 
   <script>
-    // ⚠️ 1. あなたの LNBits (demoサーバー) の Invoice/read key
-    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49"; 
-    const LNBITS_API_URL = "https://demo.lnbits.com/api/v1/payments"; 
-    
-    // ⚠️ 2. ステップ1で作成した GAS の ウェブアプリURL
+    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49";
+    const LNBITS_API_URL = "https://demo.lnbits.com/api/v1/payments";
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwLZHLxt0DHxQuTP6x0zqg2ck8Bkg421KnsBWFSz87GBcFb2FZ0uK6zDPvo6EKXMtmtVg/exec";
 
     let currentPaymentHash = "";
+    let checkPaymentInterval = null;
     let globalTotal = 0;
+    let isBurning = false; // 二重発火防止ロック
 
-    // ページ読み込み時に現在の総燃焼額を取得する
     window.onload = () => {
+      initApp();
+      fetchTotal();
+    };
+
+    function initApp() {
+      const isFirstTime = !localStorage.getItem('fiat_burner_played');
+      if (isFirstTime) {
+        document.getElementById('free-btn').style.display = 'inline-block';
+        document.getElementById('generate-btn').style.display = 'none';
+      } else {
+        document.getElementById('free-btn').style.display = 'none';
+        document.getElementById('generate-btn').style.display = 'inline-block';
+      }
+    }
+
+    function fetchTotal() {
       fetch(GAS_URL)
         .then(res => res.json())
         .then(data => {
-          globalTotal = data.totalBurned;
+          globalTotal = data.totalBurned || 0;
           updateTotalDisplay(globalTotal);
-        });
-    };
+        })
+        .catch(() => {});
+    }
 
     function updateTotalDisplay(amount) {
       document.getElementById('total-burned').innerText = amount.toLocaleString();
     }
 
-    // 100satsのインボイス発行
+    function playFree() {
+      if (isBurning) return;
+      isBurning = true;
+      localStorage.setItem('fiat_burner_played', 'true');
+      executeBurn();
+    }
+
     function generateInvoice() {
+      if (isBurning) return;
       const btn = document.getElementById('generate-btn');
       btn.innerText = "GENERATING...";
       btn.disabled = true;
@@ -161,24 +186,50 @@
       .then(data => {
         currentPaymentHash = data.payment_hash;
         const invoice = data.payment_request;
-        
+
         document.getElementById('qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=lightning:${invoice}`;
         document.getElementById('lightning-link').href = `lightning:${invoice}`;
         document.getElementById('invoice-text').value = invoice;
-        
+
         document.getElementById('action-area').style.display = 'none';
         document.getElementById('invoice-container').style.display = 'block';
+
+        // 重要：インボイス生成直後に自動でウォレットを開く
+        setTimeout(() => {
+          window.location.href = `lightning:${invoice}`;
+        }, 800);
+
+        pollPaymentStatus(currentPaymentHash);
       })
       .catch(err => {
-        alert("API Error. Check your LNBits Key.");
+        alert("インボイス生成に失敗しました。もう一度試してください。");
         btn.innerText = "BURN $1,000,000";
         btn.disabled = false;
       });
     }
 
-    // 支払い確認とアニメーション発動
+    function pollPaymentStatus(hash) {
+      if (checkPaymentInterval) clearInterval(checkPaymentInterval);
+
+      checkPaymentInterval = setInterval(() => {
+        fetch(`${LNBITS_API_URL}/${hash}`, {
+          method: "GET",
+          headers: { "X-Api-Key": LNBITS_API_KEY }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.paid && !isBurning) {
+            isBurning = true;
+            clearInterval(checkPaymentInterval);
+            executeBurn();
+          }
+        })
+        .catch(console.error);
+      }, 3000);
+    }
+
     function verifyPayment() {
-      if (!currentPaymentHash) return;
+      if (!currentPaymentHash || isBurning) return;
 
       fetch(`${LNBITS_API_URL}/${currentPaymentHash}`, {
         method: "GET",
@@ -186,46 +237,45 @@
       })
       .then(res => res.json())
       .then(data => {
-        if (data.paid) {
-          executeBurn(); // 燃やす！
+        if (data.paid && !isBurning) {
+          isBurning = true;
+          clearInterval(checkPaymentInterval);
+          executeBurn();
         } else {
-          alert("Payment not found. Send 100 sats first!");
+          alert("まだ支払いが確認できません。ウォレットで支払いを完了してから再度お試しください。");
         }
       });
     }
 
-    // 🔥 燃焼演出 ＆ GAS更新
     function executeBurn() {
       document.getElementById('invoice-container').style.display = 'none';
-      
-      // CSSアニメーションを付与
-      document.getElementById('fiat').classList.add('burning');
-      document.getElementById('fire').classList.add('show-fire');
+      document.getElementById('action-area').style.display = 'none';
 
-      // 演出中にGASにデータを送信（+100万ドル）
+      const fiat = document.getElementById('fiat');
+      const fire = document.getElementById('fire');
+
+      fiat.classList.add('burning');
+      fire.classList.add('show-fire');
+
+      // GASに燃焼記録を送信
       fetch(`${GAS_URL}?action=burn`)
         .then(res => res.json())
         .then(data => {
-          globalTotal = data.totalBurned;
-        });
+          globalTotal = data.totalBurned || globalTotal;
+          updateTotalDisplay(globalTotal);
+        })
+        .catch(() => {});
 
-      // アニメーション終了(約2秒)後に結果を表示
       setTimeout(() => {
-        document.getElementById('fiat').innerText = "💸"; // 燃えカス
-        updateTotalDisplay(globalTotal);
+        fiat.innerText = "💸";
         document.getElementById('success-message').style.display = 'block';
         document.getElementById('share-btn').style.display = 'flex';
-      }, 2000);
+      }, 2200);
     }
 
-    // X (Twitter) へのシェア機能
     function shareToX() {
-      // シェアするテキスト（ハッシュタグ付き）
       const text = `100satoshiで法定通貨を燃やしまくれ！⚡️🔥\nI just burned $1,000,000 of Fiat currency for 100 sats! 🔥\n\nTotal Fiat burned by Plebs: $${globalTotal.toLocaleString()}\n\n#Bitcoin #FiatBurner #LightningNetwork`;
-      
-      // ⚠️ あなたの GitHub Pages のURLに変更してください（宣伝用）
-      const appUrl = "https://ck121212195.github.io/The-Fiat-Burner/"; 
-
+      const appUrl = window.location.href;
       const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(appUrl)}`;
       window.open(xUrl, '_blank');
     }
