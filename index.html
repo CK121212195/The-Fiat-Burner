@@ -68,6 +68,9 @@
     .btn-chad { background: #ff5500; color: #fff; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4); }
     .btn-whale { background: #ff0000; color: #fff; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6); }
     .btn:disabled { background: #555; color: #888; cursor: not-allowed; }
+    
+    /* 無料ボタン専用のデザイン */
+    .btn-free { background: #00ff00; color: #111; box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4); }
 
     .invoice-container, #gacha-result, #name-form-container { 
       display: none; background: #222; padding: 20px; border-radius: 10px; 
@@ -76,12 +79,10 @@
     .qr-box img { border: 5px solid #fff; border-radius: 5px; width: 200px; height: 200px;}
     .invoice-text { width: 100%; height: 40px; margin-top: 10px; background: #111; color: #00ff00; border: 1px solid #333; font-family: monospace; font-size: 0.8rem; }
     
-    /* ガチャ＆フォーム部分 */
     .meme-img { width: 100%; border-radius: 5px; border: 2px solid #f7931a; margin-bottom: 10px; }
     .meme-quote { font-style: italic; color: #ddd; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.4; }
     input[type="text"] { width: 90%; padding: 12px; font-size: 0.8rem; font-family: 'Press Start 2P', cursive; background: #111; color: #fff; border: 1px solid #f7931a; border-radius: 5px; text-align: center; margin-bottom: 15px; }
 
-    /* リーダーボード */
     .leaderboard { width: 85%; max-width: 400px; background: #1a1a1a; padding: 20px; border-radius: 10px; margin: 30px 0; border: 1px solid #333; }
     .leaderboard h2 { color: #f7931a; font-family: 'Press Start 2P', cursive; font-size: 1rem; margin-bottom: 20px; text-align: center;}
     .lb-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #444; font-family: monospace; font-size: 0.9rem;}
@@ -104,14 +105,20 @@
     <div class="fire-emoji" id="fire">🔥</div>
   </div>
 
-  <!-- 3つの課金ボタン -->
   <div class="btn-group" id="action-area">
-    <button class="btn" onclick="generateInvoice(100, 1000000)">BURN $1M <br><span style="font-size:0.6rem;">(Pay 100 Sats)</span></button>
-    <button class="btn btn-chad" onclick="generateInvoice(1000, 10000000)">BURN $10M <br><span style="font-size:0.6rem;">(Pay 1,000 Sats)</span></button>
-    <button class="btn btn-whale" onclick="generateInvoice(10000, 100000000)">BURN $100M <br><span style="font-size:0.6rem;">(Pay 10,000 Sats)</span></button>
+    <!-- 初回無料ボタン -->
+    <button class="btn btn-free" id="free-btn" onclick="playFree()" style="display:none;">
+      FREE BURN $1M<br><span style="font-size:0.6rem;">(First Time Only)</span>
+    </button>
+    
+    <!-- 課金ボタン（初回プレイ後に表示） -->
+    <div id="paid-btns" style="display:none; flex-direction: column; gap: 15px;">
+      <button class="btn" onclick="generateInvoice(100, 1000000)">BURN $1M <br><span style="font-size:0.6rem;">(Pay 100 Sats)</span></button>
+      <button class="btn btn-chad" onclick="generateInvoice(1000, 10000000)">BURN $10M <br><span style="font-size:0.6rem;">(Pay 1,000 Sats)</span></button>
+      <button class="btn btn-whale" onclick="generateInvoice(10000, 100000000)">BURN $100M <br><span style="font-size:0.6rem;">(Pay 10,000 Sats)</span></button>
+    </div>
   </div>
 
-  <!-- インボイスエリア -->
   <div class="invoice-container" id="invoice-container">
     <div class="qr-box"><a id="lightning-link" href="#"><img id="qr-code" src=""></a></div>
     <p style="font-size: 0.8rem; margin: 10px 0;">Tap QR to open wallet</p>
@@ -119,7 +126,6 @@
     <button class="btn" style="width:100%; margin-top:10px; font-size:0.8rem;" onclick="verifyPayment()">VERIFY PAYMENT</button>
   </div>
 
-  <!-- ガチャ結果＆名前入力エリア -->
   <div id="gacha-result">
     <h2 style="color:#00ff00; font-family: 'Press Start 2P', cursive; font-size: 1rem; margin-top: 0;">SUCCESS!</h2>
     <img id="meme-image" class="meme-img" src="" alt="Meme">
@@ -134,16 +140,18 @@
     <button class="btn btn-chad" id="share-btn" style="display:none; width:100%; font-size:0.8rem; margin-top:10px;" onclick="shareToX()">
       SHARE TO X / TWITTER
     </button>
+    <button class="btn btn-whale" id="reload-btn" style="display:none; width:100%; font-size:0.8rem; margin-top:10px;" onclick="location.reload()">
+      BURN MORE FIAT 🔥
+    </button>
   </div>
 
-  <!-- リーダーボード -->
   <div class="leaderboard">
     <h2>🏆 TOP BURNERS</h2>
     <div id="leaderboard-content">Loading...</div>
   </div>
 
   <script>
-    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49"; // LNBitsのAPIキー
+    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49"; 
     const LNBITS_API_URL = "https://demo.lnbits.com/api/v1/payments";
     
     // ★★★ここに必ず新しいGASのウェブアプリURLを貼り付けてください★★★
@@ -154,7 +162,6 @@
     let isBurning = false;
     let currentBurnData = { sats: 0, fiat: 0, meme: null };
 
-    // 🔥 毒舌＆名言ミームガチャ50連発 🔥
     const memes =[
       { img: "https://media.giphy.com/media/trN9ht5RlE3Dcwavg2/giphy.gif", quote: "If you don't believe me or don't get it, I don't have time to try to convince you, sorry. - Satoshi" },
       { img: "https://media.giphy.com/media/7FBY7h5Psqd20/giphy.gif", quote: "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks." },
@@ -208,9 +215,36 @@
       { img: "https://media.giphy.com/media/xT0xeJpnrWC4XWblOU/giphy.gif", quote: "Fiat is a hallucination. Bitcoin is reality." }
     ];
 
-    window.onload = () => { fetchStats(); };
+    window.onload = () => { 
+      checkFirstTime();
+      fetchStats(); 
+    };
 
-    // 全体データとランキングの取得
+    // 初回アクセスの判定
+    function checkFirstTime() {
+      const isFirstTime = !localStorage.getItem('fiat_burner_played');
+      if (isFirstTime) {
+        document.getElementById('free-btn').style.display = 'block';
+        document.getElementById('paid-btns').style.display = 'none';
+      } else {
+        document.getElementById('free-btn').style.display = 'none';
+        document.getElementById('paid-btns').style.display = 'flex';
+      }
+    }
+
+    // 初回無料プレイの実行
+    function playFree() {
+      if (isBurning) return;
+      isBurning = true;
+      localStorage.setItem('fiat_burner_played', 'true'); // 初回フラグを保存
+      
+      currentBurnData.sats = 0;
+      currentBurnData.fiat = 1000000; // 100万ドルを燃やす
+      
+      document.getElementById('action-area').style.display = 'none';
+      executeBurn();
+    }
+
     function fetchStats() {
       fetch(`${GAS_URL}?action=getStats`)
         .then(res => res.json())
@@ -220,7 +254,6 @@
         }).catch(err => console.error("Leaderboard fetch error:", err));
     }
 
-    // リーダーボードの描画
     function renderLeaderboard(board) {
       const container = document.getElementById('leaderboard-content');
       container.innerHTML = "";
@@ -231,14 +264,12 @@
       board.forEach((user, index) => {
         const row = document.createElement('div');
         row.className = index === 0 ? "lb-row top1" : "lb-row";
-        
         let rankStr = index === 0 ? "👑" : `#${index+1}`;
         row.innerHTML = `<span>${rankStr} ${user.name}</span><span>${user.sats.toLocaleString()} sats</span>`;
         container.appendChild(row);
       });
     }
 
-    // インボイス生成
     function generateInvoice(satsAmount, fiatAmount) {
       if (isBurning) return;
       currentBurnData.sats = satsAmount;
@@ -269,7 +300,6 @@
       });
     }
 
-    // 支払い状況の自動監視
     function pollPaymentStatus(hash) {
       if (checkPaymentInterval) clearInterval(checkPaymentInterval);
       checkPaymentInterval = setInterval(() => {
@@ -285,7 +315,6 @@
       }, 3000);
     }
 
-    // 手動で支払い確認ボタンを押した時
     function verifyPayment() {
       if (!currentPaymentHash || isBurning) return;
       fetch(`${LNBITS_API_URL}/${currentPaymentHash}`, { method: "GET", headers: { "X-Api-Key": LNBITS_API_KEY } })
@@ -301,7 +330,6 @@
       });
     }
 
-    // 炎上アニメーションとガチャ結果表示
     function executeBurn() {
       document.getElementById('invoice-container').style.display = 'none';
       const fiat = document.getElementById('fiat');
@@ -310,7 +338,6 @@
       fiat.classList.add('burning');
       fire.classList.add('show-fire');
 
-      // ランダムにミームを抽出
       const randomMeme = memes[Math.floor(Math.random() * memes.length)];
       currentBurnData.meme = randomMeme;
 
@@ -322,7 +349,6 @@
       }, 2200);
     }
 
-    // 名前をGASに送信してランキングに載せる
     function submitScore() {
       let name = document.getElementById('pleb-name').value.trim();
       if (!name) name = "Anon Pleb";
@@ -331,7 +357,6 @@
       btn.innerText = "SAVING...";
       btn.disabled = true;
 
-      // GASへ送信
       const url = `${GAS_URL}?action=record&name=${encodeURIComponent(name)}&sats=${currentBurnData.sats}&fiat=${currentBurnData.fiat}`;
       
       fetch(url)
@@ -339,19 +364,23 @@
         .then(data => {
           document.getElementById('name-form-container').style.display = 'none';
           document.getElementById('share-btn').style.display = 'block';
-          fetchStats(); // ランキングをすぐに最新に更新する
+          document.getElementById('reload-btn').style.display = 'block'; // 追加プレイボタン表示
+          fetchStats(); 
         })
         .catch(() => {
           alert("Error saving your name. But your sats are burned!");
           document.getElementById('name-form-container').style.display = 'none';
           document.getElementById('share-btn').style.display = 'block';
+          document.getElementById('reload-btn').style.display = 'block';
         });
     }
 
-    // Xへのシェア機能
     function shareToX() {
       const fiatStr = currentBurnData.fiat >= 100000000 ? "$100M" : currentBurnData.fiat >= 10000000 ? "$10M" : "$1M";
-      const text = `I just burned ${fiatStr} of Fiat currency for ${currentBurnData.sats.toLocaleString()} sats! 🔥\n\nThe Universe gave me this message:\n"${currentBurnData.meme.quote}"\n\nAre you a bigger whale than me? Prove your work. 👇\n#Bitcoin #LightningNetwork`;
+      // 無料プレイだった場合と課金プレイだった場合でテキストを変える
+      const satsText = currentBurnData.sats > 0 ? `for ${currentBurnData.sats.toLocaleString()} sats` : "for FREE";
+      
+      const text = `I just burned ${fiatStr} of Fiat currency ${satsText}! 🔥\n\nThe Universe gave me this message:\n"${currentBurnData.meme.quote}"\n\nAre you a bigger whale than me? Prove your work. 👇\n#Bitcoin #LightningNetwork`;
       const appUrl = "https://ck121212195.github.io/The-Fiat-Burner/";
       const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(appUrl)}`;
       window.open(xUrl, '_blank');
