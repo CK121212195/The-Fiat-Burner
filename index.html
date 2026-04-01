@@ -4,54 +4,52 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YD4BE7MZR0"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer ||[];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-YD4BE7MZR0');
   </script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🔥 THE FIAT BURNER 🔥</title>
-
-  <!-- 🔥 ファビコン設定（これをそのまま使ってください） -->
+  
   <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
   <link rel="icon" type="image/png" href="favicon.png" sizes="192x192">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  
   <style>
     body {
       margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif;
       background-color: #111; color: #fff; text-align: center;
       display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+      overflow-x: hidden;
     }
     h1 {
       font-family: 'Press Start 2P', cursive; color: #f7931a;
-      margin-top: 40px; font-size: 1.5rem; text-shadow: 0 0 10px #f7931a;
-      line-height: 1.5;
+      margin-top: 20px; font-size: 1.5rem; text-shadow: 0 0 10px #f7931a; line-height: 1.5;
     }
     .global-stats {
-      background: #222; padding: 15px 30px; border-radius: 10px; border: 1px solid #f7931a;
-      margin: 20px 0; font-size: 1.2rem; font-weight: bold;
+      background: #222; padding: 15px 20px; border-radius: 10px; border: 1px solid #f7931a;
+      margin: 10px 0; font-size: 0.9rem; font-weight: bold; width: 85%; max-width: 400px;
     }
-    .total-number { color: #00ff00; font-size: 1.8rem; font-family: 'Press Start 2P', cursive; margin-top: 10px;}
+    .total-number { color: #00ff00; font-size: 1.4rem; font-family: 'Press Start 2P', cursive; margin-top: 10px; word-break: break-all;}
    
     .stage {
-      width: 300px; height: 200px; display: flex; justify-content: center; align-items: center;
-      font-size: 100px; margin: 30px 0; position: relative;
+      width: 300px; height: 150px; display: flex; justify-content: center; align-items: center;
+      font-size: 80px; margin: 10px 0; position: relative;
     }
     .fiat-money { transition: all 0.5s ease; }
-   
     .burning { animation: shakeAndBurn 2s forwards; }
     @keyframes shakeAndBurn {
-      0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+      0% { transform: scale(1) rotate(0deg); }
       20% { transform: scale(1.1) rotate(10deg); filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.2); }
       40% { transform: scale(1.1) rotate(-10deg); filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.5); }
       60% { transform: scale(1.2) translateY(-20px); opacity: 1; }
       100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
     }
-    .fire-emoji {
-      position: absolute; font-size: 150px; opacity: 0; pointer-events: none;
-    }
+    .fire-emoji { position: absolute; font-size: 150px; opacity: 0; pointer-events: none; }
     .show-fire { animation: explodeFire 2s forwards; }
     @keyframes explodeFire {
       0% { opacity: 0; transform: scale(0.5); }
@@ -59,42 +57,45 @@
       100% { opacity: 0; transform: scale(2); }
     }
 
+    .btn-group { display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 350px; }
     .btn {
-      background: #f7931a; color: #111; border: none; padding: 15px 30px;
-      font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer;
+      background: #f7931a; color: #111; border: none; padding: 15px;
+      font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer;
       text-transform: uppercase; box-shadow: 0 4px 15px rgba(247, 147, 26, 0.4);
-      transition: all 0.2s; margin-bottom: 20px; font-family: 'Press Start 2P', cursive;
+      font-family: 'Press Start 2P', cursive; transition: 0.2s;
     }
     .btn:active { transform: translateY(4px); box-shadow: none; }
+    .btn-chad { background: #ff5500; color: #fff; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4); }
+    .btn-whale { background: #ff0000; color: #fff; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6); }
     .btn:disabled { background: #555; color: #888; cursor: not-allowed; }
-    .btn-secondary { background: #333; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-   
-    .btn-x {
-      background: #000; color: #fff; border: 2px solid #fff;
-      display: none; align-items: center; justify-content: center; gap: 10px;
-    }
-    .btn-x svg { width: 20px; fill: #fff; }
 
-    .invoice-container { 
+    .invoice-container, #gacha-result, #name-form-container { 
       display: none; background: #222; padding: 20px; border-radius: 10px; 
-      margin-top: 10px; width: 90%; max-width: 340px;
+      margin-top: 10px; width: 85%; max-width: 350px; border: 1px solid #444;
     }
-    .qr-box img { border: 5px solid #fff; border-radius: 5px; }
-    .invoice-text { 
-      width: 100%; height: 50px; margin-top: 10px; background: #111; 
-      color: #00ff00; border: 1px solid #333; font-family: monospace; font-size: 0.85rem;
-    }
-   
-    #success-message { 
-      display: none; color: #f7931a; font-size: 1.5rem; font-weight: bold; 
-      margin: 20px 0; line-height: 1.4;
-    }
+    .qr-box img { border: 5px solid #fff; border-radius: 5px; width: 200px; height: 200px;}
+    .invoice-text { width: 100%; height: 40px; margin-top: 10px; background: #111; color: #00ff00; border: 1px solid #333; font-family: monospace; font-size: 0.8rem; }
+    
+    /* ガチャ＆フォーム部分 */
+    .meme-img { width: 100%; border-radius: 5px; border: 2px solid #f7931a; margin-bottom: 10px; }
+    .meme-quote { font-style: italic; color: #ddd; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.4; }
+    input[type="text"] { width: 90%; padding: 12px; font-size: 0.8rem; font-family: 'Press Start 2P', cursive; background: #111; color: #fff; border: 1px solid #f7931a; border-radius: 5px; text-align: center; margin-bottom: 15px; }
+
+    /* リーダーボード */
+    .leaderboard { width: 85%; max-width: 400px; background: #1a1a1a; padding: 20px; border-radius: 10px; margin: 30px 0; border: 1px solid #333; }
+    .leaderboard h2 { color: #f7931a; font-family: 'Press Start 2P', cursive; font-size: 1rem; margin-bottom: 20px; text-align: center;}
+    .lb-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #444; font-family: monospace; font-size: 0.9rem;}
+    .lb-row span:nth-child(1) { color: #fff; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60%; text-align: left; }
+    .lb-row span:nth-child(2) { color: #f7931a; white-space: nowrap; }
+    .lb-row.top1 { color: #ffd700 !important; font-size: 1.1rem; text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    .lb-row.top1 span:nth-child(1) { color: #ffd700; }
   </style>
 </head>
 <body>
   <h1>🔥 THE FIAT BURNER 🔥</h1>
+  
   <div class="global-stats">
-    Global Fiat Burned by Plebs<br>
+    Total Fiat Burned<br>
     <div class="total-number">$<span id="total-burned">Loading...</span></div>
   </div>
 
@@ -103,124 +104,176 @@
     <div class="fire-emoji" id="fire">🔥</div>
   </div>
 
-  <div id="action-area">
-    <button class="btn" id="free-btn" onclick="playFree()" style="display:none;">FREE BURN<br><span style="font-size:0.7rem;">(初回無料)</span></button>
-    <button class="btn" id="generate-btn" onclick="generateInvoice()">BURN $1,000,000<br><span style="font-size: 0.7rem;">(Pay 100 sats)</span></button>
+  <!-- 3つの課金ボタン -->
+  <div class="btn-group" id="action-area">
+    <button class="btn" onclick="generateInvoice(100, 1000000)">BURN $1M <br><span style="font-size:0.6rem;">(Pay 100 Sats)</span></button>
+    <button class="btn btn-chad" onclick="generateInvoice(1000, 10000000)">BURN $10M <br><span style="font-size:0.6rem;">(Pay 1,000 Sats)</span></button>
+    <button class="btn btn-whale" onclick="generateInvoice(10000, 100000000)">BURN $100M <br><span style="font-size:0.6rem;">(Pay 10,000 Sats)</span></button>
   </div>
 
+  <!-- インボイスエリア -->
   <div class="invoice-container" id="invoice-container">
-    <div class="qr-box">
-      <a id="lightning-link" href="#">
-        <img id="qr-code" src="" alt="Lightning Invoice" width="200" height="200">
-      </a>
-    </div>
+    <div class="qr-box"><a id="lightning-link" href="#"><img id="qr-code" src=""></a></div>
     <p style="font-size: 0.8rem; margin: 10px 0;">Tap QR to open wallet</p>
     <textarea class="invoice-text" id="invoice-text" readonly onclick="this.select()"></textarea>
-    <br><br>
-    <button class="btn btn-secondary" onclick="verifyPayment()">VERIFY PAYMENT</button>
+    <button class="btn" style="width:100%; margin-top:10px; font-size:0.8rem;" onclick="verifyPayment()">VERIFY PAYMENT</button>
   </div>
 
-  <div id="success-message">
-    SUCCESS! $1M BURNED 🔥<br>Fiat is a scam.
+  <!-- ガチャ結果＆名前入力エリア -->
+  <div id="gacha-result">
+    <h2 style="color:#00ff00; font-family: 'Press Start 2P', cursive; font-size: 1rem; margin-top: 0;">SUCCESS!</h2>
+    <img id="meme-image" class="meme-img" src="" alt="Meme">
+    <p id="meme-text" class="meme-quote"></p>
+    
+    <div id="name-form-container">
+      <p style="font-size: 0.8rem; margin-bottom: 10px;">Claim your glory on the Leaderboard!</p>
+      <input type="text" id="pleb-name" placeholder="Name or Npub" maxlength="20">
+      <button class="btn" style="width:100%; font-size:0.8rem;" onclick="submitScore()">ENGRAVE MY NAME</button>
+    </div>
+
+    <button class="btn btn-chad" id="share-btn" style="display:none; width:100%; font-size:0.8rem; margin-top:10px;" onclick="shareToX()">
+      SHARE TO X / TWITTER
+    </button>
   </div>
 
-  <button class="btn btn-x" id="share-btn" onclick="shareToX()">
-    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    SHARE YOUR PROOF OF WORK
-  </button>
+  <!-- リーダーボード -->
+  <div class="leaderboard">
+    <h2>🏆 TOP BURNERS</h2>
+    <div id="leaderboard-content">Loading...</div>
+  </div>
 
   <script>
-    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49";
+    const LNBITS_API_KEY = "67e5b0ad270f44d19e6d768bb3314e49"; // LNBitsのAPIキー
     const LNBITS_API_URL = "https://demo.lnbits.com/api/v1/payments";
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwLZHLxt0DHxQuTP6x0zqg2ck8Bkg421KnsBWFSz87GBcFb2FZ0uK6zDPvo6EKXMtmtVg/exec";
+    
+    // ★★★ここに必ず新しいGASのウェブアプリURLを貼り付けてください★★★
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw2zH2M6fE9_iNc8qk9NSTWdSb5Wt5a6qj8kLxxDNnMd9X6E-ZTahlRRgwSUqRMKSAvXw/exec"; 
 
     let currentPaymentHash = "";
     let checkPaymentInterval = null;
-    let globalTotal = 0;
-    let isBurning = false; // 二重発火防止ロック
+    let isBurning = false;
+    let currentBurnData = { sats: 0, fiat: 0, meme: null };
 
-    window.onload = () => {
-      initApp();
-      fetchTotal();
-    };
+    // 🔥 毒舌＆名言ミームガチャ50連発 🔥
+    const memes =[
+      { img: "https://media.giphy.com/media/trN9ht5RlE3Dcwavg2/giphy.gif", quote: "If you don't believe me or don't get it, I don't have time to try to convince you, sorry. - Satoshi" },
+      { img: "https://media.giphy.com/media/7FBY7h5Psqd20/giphy.gif", quote: "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks." },
+      { img: "https://media.giphy.com/media/xT0xeJpnrWC4XWblOU/giphy.gif", quote: "It might make sense just to get some in case it catches on. - Satoshi Nakamoto" },
+      { img: "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif", quote: "I decided to write the code before someone else did. - Satoshi Nakamoto" },
+      { img: "https://media.giphy.com/media/5efT8LI3xGIG4/giphy.gif", quote: "Bitcoin is a swarm of cyber hornets serving the goddess of wisdom. - Michael Saylor" },
+      { img: "https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif", quote: "Fiat is a melting ice cube. - Michael Saylor" },
+      { img: "https://media.giphy.com/media/xT0xeJpnrWC4XWblOU/giphy.gif", quote: "Bitcoin is the apex property of the human race." },
+      { img: "https://media.giphy.com/media/5efT8LI3xGIG4/giphy.gif", quote: "There is no second best." },
+      { img: "https://media.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif", quote: "Money printer go BRRRR!" },
+      { img: "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", quote: "The global economy is totally fine." },
+      { img: "https://media.giphy.com/media/VTxmwaCEwSlZm/giphy.gif", quote: "Have fun staying poor." },
+      { img: "https://media.giphy.com/media/XOys8CeUrElIk/giphy.gif", quote: "They told me to save in fiat..." },
+      { img: "https://media.giphy.com/media/853jNve3JUq1W/giphy.gif", quote: "Modern monetary theory in action." },
+      { img: "https://media.giphy.com/media/HhTXt43pk1I1W/giphy.gif", quote: "Central banking is a systemic risk." },
+      { img: "https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif", quote: "Inflation is taxation without legislation." },
+      { img: "https://media.giphy.com/media/XOys8CeUrElIk/giphy.gif", quote: "'Transitory' inflation. 😂" },
+      { img: "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", quote: "Soft landing." },
+      { img: "https://media.giphy.com/media/2rtQMJvhzOnRe/giphy.gif", quote: "But... but... it's backed by the government!" },
+      { img: "https://media.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif", quote: "Infinite cash at the Federal Reserve." },
+      { img: "https://media.giphy.com/media/853jNve3JUq1W/giphy.gif", quote: "CBDCs are a dystopian nightmare." },
+      { img: "https://media.giphy.com/media/2rtQMJvhzOnRe/giphy.gif", quote: "Why is my purchasing power disappearing?" },
+      { img: "https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif", quote: "Paper money eventually returns to its intrinsic value: zero. - Voltaire" },
+      { img: "https://media.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif", quote: "Quantitative Easing: A fancy word for counterfeiting." },
+      { img: "https://media.giphy.com/media/HhTXt43pk1I1W/giphy.gif", quote: "The fiat system is a Ponzi scheme." },
+      { img: "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", quote: "We are printing money out of thin air. - Jerome Powell" },
+      { img: "https://media.giphy.com/media/XOys8CeUrElIk/giphy.gif", quote: "Buying government bonds in 2026." },
+      { img: "https://media.giphy.com/media/853jNve3JUq1W/giphy.gif", quote: "Trust the government, they said." },
+      { img: "https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif", quote: "Your fiat is bleeding." },
+      { img: "https://media.giphy.com/media/2rtQMJvhzOnRe/giphy.gif", quote: "Peter Schiff was right... wait, no he wasn't." },
+      { img: "https://media.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif", quote: "We have infinite cash. - Neel Kashkari" },
+      { img: "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", quote: "CPI is only 2%... if you don't eat or live anywhere." },
+      { img: "https://media.giphy.com/media/853jNve3JUq1W/giphy.gif", quote: "Fractional reserve banking is fine." },
+      { img: "https://media.giphy.com/media/7FBY7h5Psqd20/giphy.gif", quote: "Tick tock, next block." },
+      { img: "https://media.giphy.com/media/sa6TjxRmvFcYg/giphy.gif", quote: "I'm not leaving. HODL." },
+      { img: "https://media.giphy.com/media/5efT8LI3xGIG4/giphy.gif", quote: "Fix the money, fix the world." },
+      { img: "https://media.giphy.com/media/7FBY7h5Psqd20/giphy.gif", quote: "1 BTC = 1 BTC." },
+      { img: "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif", quote: "Stay humble, stack sats." },
+      { img: "https://media.giphy.com/media/VTxmwaCEwSlZm/giphy.gif", quote: "Yield farming? I just stack sats." },
+      { img: "https://media.giphy.com/media/trN9ht5RlE3Dcwavg2/giphy.gif", quote: "Vires in Numeris." },
+      { img: "https://media.giphy.com/media/5efT8LI3xGIG4/giphy.gif", quote: "You don't change Bitcoin. Bitcoin changes you." },
+      { img: "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif", quote: "Be your own bank." },
+      { img: "https://media.giphy.com/media/sa6TjxRmvFcYg/giphy.gif", quote: "I measure my wealth in Satoshi, not fiat." },
+      { img: "https://media.giphy.com/media/VTxmwaCEwSlZm/giphy.gif", quote: "Get off zero." },
+      { img: "https://media.giphy.com/media/7FBY7h5Psqd20/giphy.gif", quote: "Proof of Work > Proof of Stake" },
+      { img: "https://media.giphy.com/media/XOys8CeUrElIk/giphy.gif", quote: "Gold is just a pet rock. Bitcoin is a network." },
+      { img: "https://media.giphy.com/media/sa6TjxRmvFcYg/giphy.gif", quote: "Buy the dip, pleb." },
+      { img: "https://media.giphy.com/media/HhTXt43pk1I1W/giphy.gif", quote: "Banks are the middleman we no longer need." },
+      { img: "https://media.giphy.com/media/trN9ht5RlE3Dcwavg2/giphy.gif", quote: "Running a node is how you verify." },
+      { img: "https://media.giphy.com/media/5efT8LI3xGIG4/giphy.gif", quote: "Welcome to the Citadel." },
+      { img: "https://media.giphy.com/media/xT0xeJpnrWC4XWblOU/giphy.gif", quote: "Fiat is a hallucination. Bitcoin is reality." }
+    ];
 
-    function initApp() {
-      const isFirstTime = !localStorage.getItem('fiat_burner_played');
-      if (isFirstTime) {
-        document.getElementById('free-btn').style.display = 'inline-block';
-        document.getElementById('generate-btn').style.display = 'none';
-      } else {
-        document.getElementById('free-btn').style.display = 'none';
-        document.getElementById('generate-btn').style.display = 'inline-block';
-      }
-    }
+    window.onload = () => { fetchStats(); };
 
-    function fetchTotal() {
-      fetch(GAS_URL)
+    // 全体データとランキングの取得
+    function fetchStats() {
+      fetch(`${GAS_URL}?action=getStats`)
         .then(res => res.json())
         .then(data => {
-          globalTotal = data.totalBurned || 0;
-          updateTotalDisplay(globalTotal);
-        })
-        .catch(() => {});
+          document.getElementById('total-burned').innerText = (data.totalBurned || 0).toLocaleString();
+          renderLeaderboard(data.leaderboard);
+        }).catch(err => console.error("Leaderboard fetch error:", err));
     }
 
-    function updateTotalDisplay(amount) {
-      document.getElementById('total-burned').innerText = amount.toLocaleString();
+    // リーダーボードの描画
+    function renderLeaderboard(board) {
+      const container = document.getElementById('leaderboard-content');
+      container.innerHTML = "";
+      if (!board || board.length === 0) {
+        container.innerHTML = "<p style='color:#888'>No plebs yet. Be the first!</p>";
+        return;
+      }
+      board.forEach((user, index) => {
+        const row = document.createElement('div');
+        row.className = index === 0 ? "lb-row top1" : "lb-row";
+        
+        let rankStr = index === 0 ? "👑" : `#${index+1}`;
+        row.innerHTML = `<span>${rankStr} ${user.name}</span><span>${user.sats.toLocaleString()} sats</span>`;
+        container.appendChild(row);
+      });
     }
 
-    function playFree() {
+    // インボイス生成
+    function generateInvoice(satsAmount, fiatAmount) {
       if (isBurning) return;
-      isBurning = true;
-      localStorage.setItem('fiat_burner_played', 'true');
-      executeBurn();
-    }
+      currentBurnData.sats = satsAmount;
+      currentBurnData.fiat = fiatAmount;
 
-    function generateInvoice() {
-      if (isBurning) return;
-      const btn = document.getElementById('generate-btn');
-      btn.innerText = "GENERATING...";
-      btn.disabled = true;
+      document.getElementById('action-area').style.display = 'none';
+      document.getElementById('invoice-container').style.display = 'block';
 
       fetch(LNBITS_API_URL, {
         method: "POST",
         headers: { "X-Api-Key": LNBITS_API_KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({ out: false, amount: 100, memo: "Burn Fiat 🔥" })
+        body: JSON.stringify({ out: false, amount: satsAmount, memo: `Burn $${(fiatAmount/1000000)}M Fiat 🔥` })
       })
       .then(res => res.json())
       .then(data => {
         currentPaymentHash = data.payment_hash;
         const invoice = data.payment_request;
-
         document.getElementById('qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=lightning:${invoice}`;
         document.getElementById('lightning-link').href = `lightning:${invoice}`;
         document.getElementById('invoice-text').value = invoice;
-
-        document.getElementById('action-area').style.display = 'none';
-        document.getElementById('invoice-container').style.display = 'block';
-
-        // 重要：インボイス生成直後に自動でウォレットを開く
-        setTimeout(() => {
-          window.location.href = `lightning:${invoice}`;
-        }, 800);
-
+        
+        setTimeout(() => { window.location.href = `lightning:${invoice}`; }, 800);
         pollPaymentStatus(currentPaymentHash);
       })
       .catch(err => {
-        alert("インボイス生成に失敗しました。もう一度試してください。");
-        btn.innerText = "BURN $1,000,000";
-        btn.disabled = false;
+        alert("Invoice generation failed.");
+        location.reload();
       });
     }
 
+    // 支払い状況の自動監視
     function pollPaymentStatus(hash) {
       if (checkPaymentInterval) clearInterval(checkPaymentInterval);
-
       checkPaymentInterval = setInterval(() => {
-        fetch(`${LNBITS_API_URL}/${hash}`, {
-          method: "GET",
-          headers: { "X-Api-Key": LNBITS_API_KEY }
-        })
+        fetch(`${LNBITS_API_URL}/${hash}`, { method: "GET", headers: { "X-Api-Key": LNBITS_API_KEY } })
         .then(res => res.json())
         .then(data => {
           if (data.paid && !isBurning) {
@@ -228,18 +281,14 @@
             clearInterval(checkPaymentInterval);
             executeBurn();
           }
-        })
-        .catch(console.error);
+        }).catch(console.error);
       }, 3000);
     }
 
+    // 手動で支払い確認ボタンを押した時
     function verifyPayment() {
       if (!currentPaymentHash || isBurning) return;
-
-      fetch(`${LNBITS_API_URL}/${currentPaymentHash}`, {
-        method: "GET",
-        headers: { "X-Api-Key": LNBITS_API_KEY }
-      })
+      fetch(`${LNBITS_API_URL}/${currentPaymentHash}`, { method: "GET", headers: { "X-Api-Key": LNBITS_API_KEY } })
       .then(res => res.json())
       .then(data => {
         if (data.paid && !isBurning) {
@@ -247,40 +296,63 @@
           clearInterval(checkPaymentInterval);
           executeBurn();
         } else {
-          alert("まだ支払いが確認できません。ウォレットで支払いを完了してから再度お試しください。");
+          alert("Payment not received yet. Keep waiting!");
         }
       });
     }
 
+    // 炎上アニメーションとガチャ結果表示
     function executeBurn() {
       document.getElementById('invoice-container').style.display = 'none';
-      document.getElementById('action-area').style.display = 'none';
-
       const fiat = document.getElementById('fiat');
       const fire = document.getElementById('fire');
 
       fiat.classList.add('burning');
       fire.classList.add('show-fire');
 
-      // GASに燃焼記録を送信
-      fetch(`${GAS_URL}?action=burn`)
-        .then(res => res.json())
-        .then(data => {
-          globalTotal = data.totalBurned || globalTotal;
-          updateTotalDisplay(globalTotal);
-        })
-        .catch(() => {});
+      // ランダムにミームを抽出
+      const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+      currentBurnData.meme = randomMeme;
 
       setTimeout(() => {
         fiat.innerText = "💸";
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('share-btn').style.display = 'flex';
+        document.getElementById('meme-image').src = randomMeme.img;
+        document.getElementById('meme-text').innerText = `"${randomMeme.quote}"`;
+        document.getElementById('gacha-result').style.display = 'block';
       }, 2200);
     }
 
+    // 名前をGASに送信してランキングに載せる
+    function submitScore() {
+      let name = document.getElementById('pleb-name').value.trim();
+      if (!name) name = "Anon Pleb";
+      
+      const btn = document.querySelector('#name-form-container button');
+      btn.innerText = "SAVING...";
+      btn.disabled = true;
+
+      // GASへ送信
+      const url = `${GAS_URL}?action=record&name=${encodeURIComponent(name)}&sats=${currentBurnData.sats}&fiat=${currentBurnData.fiat}`;
+      
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('name-form-container').style.display = 'none';
+          document.getElementById('share-btn').style.display = 'block';
+          fetchStats(); // ランキングをすぐに最新に更新する
+        })
+        .catch(() => {
+          alert("Error saving your name. But your sats are burned!");
+          document.getElementById('name-form-container').style.display = 'none';
+          document.getElementById('share-btn').style.display = 'block';
+        });
+    }
+
+    // Xへのシェア機能
     function shareToX() {
-      const text = `100satoshiで法定通貨を燃やしまくれ！⚡️🔥\nI just burned $1,000,000 of Fiat currency for 100 sats! 🔥\n\nTotal Fiat burned by Plebs: $${globalTotal.toLocaleString()}\n\n#Bitcoin #FiatBurner #LightningNetwork`;
-      const appUrl = window.location.href;
+      const fiatStr = currentBurnData.fiat >= 100000000 ? "$100M" : currentBurnData.fiat >= 10000000 ? "$10M" : "$1M";
+      const text = `I just burned ${fiatStr} of Fiat currency for ${currentBurnData.sats.toLocaleString()} sats! 🔥\n\nThe Universe gave me this message:\n"${currentBurnData.meme.quote}"\n\nAre you a bigger whale than me? Prove your work. 👇\n#Bitcoin #LightningNetwork`;
+      const appUrl = "https://ck121212195.github.io/The-Fiat-Burner/";
       const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(appUrl)}`;
       window.open(xUrl, '_blank');
     }
